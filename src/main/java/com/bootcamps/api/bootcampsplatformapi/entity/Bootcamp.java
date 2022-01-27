@@ -3,11 +3,9 @@ package com.bootcamps.api.bootcampsplatformapi.entity;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Data
@@ -15,8 +13,10 @@ public class Bootcamp {
 
     private final LocalDate dataInicial = LocalDate.now();
     private final LocalDate dataFim;
-    private Set<Aluno> alunosInscritos = new HashSet<>();
-    private Set<Conteudo> conteudos = new LinkedHashSet<>();
+    @OneToMany
+    private Aluno alunosInscritos;
+    @OneToMany
+    private Conteudo conteudos;
 
     @Override
     public boolean equals(Object o) {
