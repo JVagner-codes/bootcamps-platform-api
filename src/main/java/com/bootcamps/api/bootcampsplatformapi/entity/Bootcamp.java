@@ -2,8 +2,7 @@ package com.bootcamps.api.bootcampsplatformapi.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -11,6 +10,9 @@ import java.util.Objects;
 @Data
 public class Bootcamp {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private final LocalDate dataInicial = LocalDate.now();
     private final LocalDate dataFim;
     @OneToMany
