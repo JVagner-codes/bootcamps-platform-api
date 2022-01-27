@@ -3,6 +3,7 @@ package com.bootcamps.api.bootcampsplatformapi.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
@@ -15,6 +16,6 @@ public class Aluno {
     @ManyToOne
     private Endereco endereco;
     @OneToMany
-    private Bootcamp bootcampEscritos;
+    private Set<Bootcamp> bootcampEscritos;
 
 }

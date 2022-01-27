@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Data
@@ -16,9 +17,9 @@ public class Bootcamp {
     private final LocalDate dataInicial = LocalDate.now();
     private final LocalDate dataFim;
     @OneToMany
-    private Aluno alunosInscritos;
+    private Set<Aluno> alunosInscritos;
     @OneToMany
-    private Conteudo conteudos;
+    private Set<Conteudo> conteudos;
 
     @Override
     public boolean equals(Object o) {
