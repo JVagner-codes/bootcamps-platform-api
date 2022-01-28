@@ -15,7 +15,7 @@ public class Aluno {
     private String nome;
     @ManyToOne
     private Endereco endereco;
-    @OneToMany
+    @ManyToMany
     private Set<Bootcamp> bootcampEscritos;
 
 }

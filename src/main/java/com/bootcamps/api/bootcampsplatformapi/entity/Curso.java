@@ -8,18 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-public class Curso extends Conteudo{
+public class Curso {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Integer cargaHoraria;
+    private String titulo;
+    private String descricao;
 
-    @Override
-    public Double calculaXp() {
-        return getXpAGanhar() + 200;
-    }
 }

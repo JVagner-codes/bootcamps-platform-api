@@ -16,22 +16,11 @@ public class Bootcamp {
     private Long id;
     private final LocalDate dataInicial = LocalDate.now();
     private final LocalDate dataFim;
-    @OneToMany
+    @ManyToMany
     private Set<Aluno> alunosInscritos;
-    @OneToMany
-    private Set<Conteudo> conteudos;
+    @ManyToMany
+    private Set<Curso> cursos;
+    @ManyToMany
+    private Set<Mentoria> mentorias;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Bootcamp bootcamp = (Bootcamp) o;
-        return Objects.equals(dataInicial, bootcamp.dataInicial) && Objects.equals(dataFim, bootcamp.dataFim) && Objects.equals(alunosInscritos, bootcamp.alunosInscritos) && Objects.equals(conteudos, bootcamp.conteudos);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), dataInicial, dataFim, alunosInscritos, conteudos);
-    }
 }

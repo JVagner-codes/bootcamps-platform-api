@@ -9,10 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-public class Mentoria extends Conteudo {
+public class Mentoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,8 +20,4 @@ public class Mentoria extends Conteudo {
     private String descricao;
     private LocalDate data;
 
-    @Override
-    public Double calculaXp() {
-        return getXpAGanhar() + 75;
-    }
 }
