@@ -15,8 +15,8 @@ public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Integer cargaHoraria;
     private String titulo;
     private String descricao;
+    private Integer cargaHoraria;
 
 }

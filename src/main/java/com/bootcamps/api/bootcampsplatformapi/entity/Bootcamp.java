@@ -14,6 +14,7 @@ public class Bootcamp {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String nome;
     private final LocalDate dataInicial = LocalDate.now();
     private final LocalDate dataFim;
     @ManyToMany
