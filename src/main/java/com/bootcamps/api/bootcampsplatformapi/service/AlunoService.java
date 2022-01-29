@@ -16,7 +16,7 @@ public interface AlunoService {
 
     void atualizar(Long id, Aluno aluno) throws AlunoNaoEncontradoComEsseId;
 
-    void adicionarBootcampParaAluno(Long idBootcamp, Aluno aluno);
+    void adicionarBootcampParaAluno(Long id, Bootcamp bootcamp);
 
     void deletar(Long id);
 }

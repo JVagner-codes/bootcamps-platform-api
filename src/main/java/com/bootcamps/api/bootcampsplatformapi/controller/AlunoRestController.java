@@ -1,9 +1,11 @@
 package com.bootcamps.api.bootcampsplatformapi.controller;
 
 import com.bootcamps.api.bootcampsplatformapi.entity.Aluno;
+import com.bootcamps.api.bootcampsplatformapi.entity.Bootcamp;
 import com.bootcamps.api.bootcampsplatformapi.exception.AlunoNaoEncontradoComEsseId;
 import com.bootcamps.api.bootcampsplatformapi.service.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,10 +37,21 @@ public class AlunoRestController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping({"/{idBootcamp}"})
-    public ResponseEntity<Aluno> adicionarBootcampParaAluno(@PathVariable Long idBootcamp, @RequestBody Aluno aluno) {
-        alunoService.adicionarBootcampParaAluno(idBootcamp, aluno);
-        return ResponseEntity.ok(aluno);
+    @PutMapping({"/{id}"})
+    public ResponseEntity<Void> atualizar(@PathVariable Long id, @RequestBody Aluno aluno) {
+        try {
+            alunoService.atualizar(id, aluno);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (AlunoNaoEncontradoComEsseId alunoNaoEncontradoComEsseId) {
+            alunoNaoEncontradoComEsseId.printStackTrace();
+        }
+        return null;
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> adicionarBootcampParaAluno(@PathVariable Long id, @RequestBody Bootcamp bootcamp) {
+        alunoService.adicionarBootcampParaAluno(id, bootcamp);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @DeleteMapping("/{id}")

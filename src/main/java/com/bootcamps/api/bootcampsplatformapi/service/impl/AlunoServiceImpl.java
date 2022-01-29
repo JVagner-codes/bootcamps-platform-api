@@ -62,15 +62,16 @@ public class AlunoServiceImpl implements AlunoService {
     }
 
     @Override
-    public void adicionarBootcampParaAluno(Long idBootcamp, Aluno aluno) {
-        alunoRepository.existsById(aluno.getId());
-        Optional<Bootcamp> bootcampOptional = bootcampRepository.findById(idBootcamp);
-        bootcampOptional.ifPresent(bootcamp -> {
-            aluno.getBootcampEscritos().add(bootcamp);
-            bootcamp.getAlunosInscritos().add(aluno);
-            salvarAlunoComCep(aluno);
+    public void adicionarBootcampParaAluno(Long id, Bootcamp bootcamp) {
+        Optional<Aluno> alunoOptional = alunoRepository.findById(id);
+        boolean existeBootcamp = bootcampRepository.existsById(bootcamp.getId());
+        if (alunoOptional.isPresent() && existeBootcamp) {
+            Aluno alunoEncontrado = alunoOptional.get();
+            alunoEncontrado.getBootcampEscritos().add(bootcamp);
+            bootcamp.getAlunosInscritos().add(alunoEncontrado);
+            alunoRepository.save(alunoEncontrado);
             bootcampRepository.save(bootcamp);
-        });
+        }
     }
 
     @Override
