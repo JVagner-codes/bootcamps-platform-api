@@ -2,7 +2,7 @@ package com.bootcamps.api.bootcampsplatformapi.controller;
 
 import com.bootcamps.api.bootcampsplatformapi.entity.Aluno;
 import com.bootcamps.api.bootcampsplatformapi.entity.Bootcamp;
-import com.bootcamps.api.bootcampsplatformapi.exception.AlunoNaoEncontradoComEsseId;
+import com.bootcamps.api.bootcampsplatformapi.exception.IdNaoEncontrado;
 import com.bootcamps.api.bootcampsplatformapi.service.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,8 +25,8 @@ public class AlunoRestController {
     public ResponseEntity<Aluno> buscarAlunoPorId(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(alunoService.buscarAlunoPorId(id));
-        } catch (AlunoNaoEncontradoComEsseId alunoNaoEncontradoComEsseId) {
-            alunoNaoEncontradoComEsseId.getStackTrace();
+        } catch (IdNaoEncontrado idNaoEncontrado) {
+            idNaoEncontrado.getStackTrace();
         }
         return null;
     }
@@ -34,7 +34,7 @@ public class AlunoRestController {
     @PostMapping
     public ResponseEntity<Void> inserir(@RequestBody Aluno aluno) {
         alunoService.inserir(aluno);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping({"/{id}"})
@@ -42,8 +42,8 @@ public class AlunoRestController {
         try {
             alunoService.atualizar(id, aluno);
             return ResponseEntity.status(HttpStatus.CREATED).build();
-        } catch (AlunoNaoEncontradoComEsseId alunoNaoEncontradoComEsseId) {
-            alunoNaoEncontradoComEsseId.printStackTrace();
+        } catch (IdNaoEncontrado idNaoEncontrado) {
+            idNaoEncontrado.printStackTrace();
         }
         return null;
     }
@@ -51,12 +51,12 @@ public class AlunoRestController {
     @PatchMapping("/{id}")
     public ResponseEntity<Void> adicionarBootcampParaAluno(@PathVariable Long id, @RequestBody Bootcamp bootcamp) {
         alunoService.adicionarBootcampParaAluno(id, bootcamp);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(Long id) {
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
         alunoService.deletar(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
