@@ -3,7 +3,7 @@ package com.bootcamps.api.bootcampsplatformapi.service.impl;
 import com.bootcamps.api.bootcampsplatformapi.entity.Aluno;
 import com.bootcamps.api.bootcampsplatformapi.entity.Bootcamp;
 import com.bootcamps.api.bootcampsplatformapi.entity.Endereco;
-import com.bootcamps.api.bootcampsplatformapi.exception.AlunoNaoEncontradoComEsseId;
+import com.bootcamps.api.bootcampsplatformapi.exception.IdNaoEncontrado;
 import com.bootcamps.api.bootcampsplatformapi.repository.AlunoRepository;
 import com.bootcamps.api.bootcampsplatformapi.repository.BootcampRepository;
 import com.bootcamps.api.bootcampsplatformapi.repository.EnderecoRepository;
@@ -32,18 +32,18 @@ public class AlunoServiceImpl implements AlunoService {
     }
 
     @Override
-    public Iterable<Bootcamp> buscarTodosOsBootcampsDoAlunoPorId(Long id) throws AlunoNaoEncontradoComEsseId {
+    public Iterable<Bootcamp> buscarTodosOsBootcampsDoAlunoPorId(Long id) throws IdNaoEncontrado {
         Aluno aluno = buscarAlunoPorId(id);
         return aluno.getBootcampEscritos();
     }
 
     @Override
-    public Aluno buscarAlunoPorId(Long id) throws AlunoNaoEncontradoComEsseId {
+    public Aluno buscarAlunoPorId(Long id) throws IdNaoEncontrado {
         Optional<Aluno> optionalAluno = alunoRepository.findById(id);
         if (optionalAluno.isPresent()) {
             return optionalAluno.get();
         }
-        throw new AlunoNaoEncontradoComEsseId("Não existe Aluno com esse Id: " + id);
+        throw new IdNaoEncontrado("Não existe Aluno com esse Id: " + id);
     }
 
     @Override
@@ -52,12 +52,12 @@ public class AlunoServiceImpl implements AlunoService {
     }
 
     @Override
-    public void atualizar(Long id, Aluno aluno) throws AlunoNaoEncontradoComEsseId {
+    public void atualizar(Long id, Aluno aluno) throws IdNaoEncontrado {
         Optional<Aluno> clienteBD = alunoRepository.findById(id);
         if (clienteBD.isPresent()) {
             salvarAlunoComCep(aluno);
         } else {
-            throw new AlunoNaoEncontradoComEsseId("Não existe Aluno com esse Id: " + id);
+            throw new IdNaoEncontrado("Não existe Aluno com esse Id: " + id);
         }
     }
 
